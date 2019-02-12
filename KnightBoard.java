@@ -1,10 +1,12 @@
 public class KnightBoard {
-
-
+  private int[][] board;
 
   //throws IllegalArgumentException when either parameter is negative.
   public KnightBoard(int startingRows,int startingCols) {
-
+    if (startingRows < 0 || startingCols < 0) {
+      throw new IllegalArgumentException("Dimensions cannot be negative");
+    }
+    board = new int[startingRows][startingCols];
   }
 
 
