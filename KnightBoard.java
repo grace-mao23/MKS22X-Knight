@@ -42,5 +42,10 @@ public class KnightBoard {
     return -1;
   }
 
+  public static void main(String[] args) {
+    KnightBoard k = new KnightBoard(2,2);
+    System.out.println()
+  }
+
 
 }
