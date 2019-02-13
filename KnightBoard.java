@@ -16,11 +16,11 @@ public class KnightBoard {
     for (int i = 0; i < board.length; i++) {
       for (int x = 0; x < board[i].length; x++) {
         if (board[i][x] == 0) {
-          result += " _";
+            result += " _";
         } else if (board[i][x] < 10) {
           result += " " + (board[i][x]-1) + " ";
         } else {
-          result += board[i][x] + " ";
+          result += (board[i][x]-1) + " ";
         }
       }
       result += "\n";
@@ -77,7 +77,7 @@ public class KnightBoard {
 
   // level is the number of the knight
   private boolean solveH(int row, int col, int round) {
-    if (level == board.length * board[0].length -1) {
+    if (level == board.length * board[0].length) {
       board[row][col] = level;
       return true; // board solved
     }
