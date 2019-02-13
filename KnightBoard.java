@@ -1,5 +1,6 @@
 public class KnightBoard {
   private int[][] board;
+  private int level = 1;
 
   //throws IllegalArgumentException when either parameter is negative.
   public KnightBoard(int startingRows,int startingCols) {
@@ -25,32 +26,51 @@ public class KnightBoard {
     return result;
   }
 
-  // 0 - up left, 1 - up right, 2 - right up, 3 - right down, 4 - down right
-  // 5 - down left, 6 - right down, 7 - right up
-  private boolean moveKnight(int choice, int level, int row, int col) {
-    if (board[row][col] != -1) return false;
+  private int[] move(int i) {
     int[] rowChange = new int[] {-2, -2, -1, 1, 2, 2, 1, -1};
     int[] colChange = new int[] {-1, 1, 2, 2, 1, -1, -2, -2};
-    int changedRow = row + rowChange[choice];
-    int changedCol = col + colChange[choice];
+    int[] result = new int[] { rowChange[i], colChange[i] };
+    return result;
+  }
+
+  // 0 - up left, 1 - up right, 2 - right up, 3 - right down, 4 - down right
+  // 5 - down left, 6 - right down, 7 - right up
+  private boolean moveKnight(int choice, int row, int col) {
+    if (board[row][col] != -1) return false;
+    int changedRow = row + move(choice)[0];
+    int changedCol = col + move(choice)[1];
+  //  System.out.println("Row: " + changedRow + ", Col: " + changedCol);
     if (changedRow < 0 || changedCol < 0 ||
-        changedRow > board.length || changedCol > board[changedRow].length) {
+        changedRow >= board.length || changedCol >= board[0].length ||
+        board[changedRow][changedCol] != 0) {
       return false;
     }
     board[row][col] = level;
     board[changedRow][changedCol] = -1;
+    level++;
     return true;
   }
 
   //throws IllegalStateException when the board contains non-zero values.
   //throws IllegalArgumentException when either parameter is negative or out of bounds.
   public boolean solve(int startingRow, int startingCol) {
-    return true;
+    board[startingRow][startingCol] = -1;
+    return solveH(startingRow, startingCol, 0);
   }
 
   // level is the number of the knight
-  private boolean solveH(int row, int col, int level) {
-    return true;
+  private boolean solveH(int row, int col, int round) {
+    if (level == board.length * board[0].length) {
+      return true; // board solved
+    }
+    for (int i = 0; i < 8; i++) {
+      System.out.println("Choice: "+i+" Round: "+round+"\n"+toString());
+      if (moveKnight(i, row, col) && solveH(row+move(i)[0],col+move(i)[1],round+1)) {
+        System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
+        return true;
+      }
+    }
+    return false;
   }
 
   //throws IllegalStateException when the board contains non-zero values.
@@ -60,7 +80,9 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(2,2);
+    KnightBoard k = new KnightBoard(5,5);
+    System.out.println(k.toString());
+    System.out.println(k.solve(0,0));
     System.out.println(k.toString());
   }
 
