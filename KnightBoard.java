@@ -1,6 +1,6 @@
 public class KnightBoard {
   private int[][] board;
-  private int level = 0;
+  private int level = 1;
 
   //throws IllegalArgumentException when either parameter is negative.
   public KnightBoard(int startingRows,int startingCols) {
@@ -18,7 +18,7 @@ public class KnightBoard {
         if (board[i][x] == 0) {
           result += " _";
         } else if (board[i][x] < 10) {
-          result += " " + board[i][x] + " ";
+          result += " " + (board[i][x]-1) + " ";
         } else {
           result += board[i][x] + " ";
         }
@@ -77,23 +77,23 @@ public class KnightBoard {
 
   // level is the number of the knight
   private boolean solveH(int row, int col, int round) {
-    if (level == board.length * board[0].length) {
+    if (level == board.length * board[0].length -1) {
       board[row][col] = level;
       return true; // board solved
     }
     for (int i = 0; i < 8; i++) {
-    //  System.out.println("AChoice: "+i+" Round: "+round+"\n"+toString());
+      System.out.println("AChoice: "+i+" Round: "+round+"\n"+toString());
       boolean moved = moveKnight(i,row,col);
       if (moved && solveH(row+move(i)[0],col+move(i)[1],round+1)) {
-  //      System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
+        System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
         return true;
       }
       if (moved) {
-  //      System.out.println("False activated Row: " + row + " Col: "+ col);
+        System.out.println("False activated Row: " + row + " Col: "+ col);
         backKnight(i,row + move(i)[0],col + move(i)[1]);
       }
     }
-    //System.out.println("False");
+    System.out.println("False");
     return false;
   }
 
