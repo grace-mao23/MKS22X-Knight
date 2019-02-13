@@ -82,18 +82,18 @@ public class KnightBoard {
       return true; // board solved
     }
     for (int i = 0; i < 8; i++) {
-      System.out.println("AChoice: "+i+" Round: "+round+"\n"+toString());
+  //    System.out.println("AChoice: "+i+" Round: "+round+"\n"+toString());
       boolean moved = moveKnight(i,row,col);
       if (moved && solveH(row+move(i)[0],col+move(i)[1],round+1)) {
-        System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
+//        System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
         return true;
       }
       if (moved) {
-        System.out.println("False activated Row: " + row + " Col: "+ col);
+  //      System.out.println("False activated Row: " + row + " Col: "+ col);
         backKnight(i,row + move(i)[0],col + move(i)[1]);
       }
     }
-    System.out.println("False");
+//    System.out.println("False");
     return false;
   }
 
@@ -104,7 +104,7 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(5,5);
+    KnightBoard k = new KnightBoard(8,8);
     System.out.println(k.toString());
     System.out.println(k.solve(0,0));
     System.out.println(k.toString());
