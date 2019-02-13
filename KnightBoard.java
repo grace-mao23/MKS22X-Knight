@@ -1,6 +1,6 @@
 public class KnightBoard {
   private int[][] board;
-  private int level = 1;
+  private int level = 0;
 
   //throws IllegalArgumentException when either parameter is negative.
   public KnightBoard(int startingRows,int startingCols) {
@@ -15,7 +15,9 @@ public class KnightBoard {
     String result = "";
     for (int i = 0; i < board.length; i++) {
       for (int x = 0; x < board[i].length; x++) {
-        if (board[i][x] < 10) {
+        if (board[i][x] == 0) {
+          result += " _";
+        } else if (board[i][x] < 10) {
           result += " " + board[i][x] + " ";
         } else {
           result += board[i][x] + " ";
