@@ -76,16 +76,22 @@ public class KnightBoard {
   // level is the number of the knight
   private boolean solveH(int row, int col, int round) {
     if (level == board.length * board[0].length) {
+      board[row][col] = level;
       return true; // board solved
     }
     for (int i = 0; i < 8; i++) {
-      System.out.println("Choice: "+i+" Round: "+round+"\n"+toString());
-      if (moveKnight(i, row, col) && solveH(row+move(i)[0],col+move(i)[1],round+1)) {
-        System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
+    //  System.out.println("AChoice: "+i+" Round: "+round+"\n"+toString());
+      boolean moved = moveKnight(i,row,col);
+      if (moved && solveH(row+move(i)[0],col+move(i)[1],round+1)) {
+  //      System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
         return true;
       }
-      backKnight(i,row,col);
+      if (moved) {
+  //      System.out.println("False activated Row: " + row + " Col: "+ col);
+        backKnight(i,row + move(i)[0],col + move(i)[1]);
+      }
     }
+    //System.out.println("False");
     return false;
   }
 
