@@ -51,6 +51,21 @@ public class KnightBoard {
     return true;
   }
 
+  private boolean backKnight(int choice, int row, int col) {
+    if (board[row][col] != -1) return false;
+    int backRow = row - move(choice)[0];
+    int backCol = col - move(choice)[1];
+    if (backRow < 0 || backCol < 0 ||
+        backRow >= board.length || backCol >= board[0].length ||
+        board[backRow][backCol] == 0) {
+      return false;
+    }
+    board[row][col] = 0;
+    board[backRow][backCol] = -1;
+    level--;
+    return true;
+  }
+
   //throws IllegalStateException when the board contains non-zero values.
   //throws IllegalArgumentException when either parameter is negative or out of bounds.
   public boolean solve(int startingRow, int startingCol) {
@@ -69,6 +84,7 @@ public class KnightBoard {
         System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
         return true;
       }
+      backKnight(i,row,col);
     }
     return false;
   }
