@@ -83,11 +83,11 @@ public class KnightBoard {
       throw new IllegalArgumentException("Parameters out of bounds");
     }
     board[startingRow][startingCol] = -1;
-    return solveH(startingRow, startingCol, 0);
+    return solveH(startingRow, startingCol);
   }
 
   // level is the number of the knight
-  private boolean solveH(int row, int col, int round) {
+  private boolean solveH(int row, int col) {
     if (level == board.length * board[0].length) {
       board[row][col] = level;
       return true; // board solved
@@ -95,7 +95,7 @@ public class KnightBoard {
     for (int i = 0; i < 8; i++) {
   //    System.out.println("AChoice: "+i+" Round: "+round+"\n"+toString());
       boolean moved = moveKnight(i,row,col);
-      if (moved && solveH(row+move(i)[0],col+move(i)[1],round+1)) {
+      if (moved && solveH(row+move(i)[0],col+move(i)[1])) {
 //        System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
         return true;
       }
@@ -122,6 +122,10 @@ public class KnightBoard {
         startingRow >= board.length || startingCol >= board[startingRow].length) {
       throw new IllegalArgumentException("Parameters out of bounds");
     }
+    return -1;
+  }
+
+  public int countH(int startingRow, int startingCol) {
     return -1;
   }
 
