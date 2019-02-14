@@ -136,25 +136,20 @@ public class KnightBoard {
   }
 
   public int countH(int row, int col) {
-    System.out.println(toString());
+    System.out.println(toString() + "\nLevel: "+level);
     if (level == board.length * board[0].length) {
-      System.out.println("Row: " + row + ", Col: " + col);
       board[row][col] = level;
       return 1; // board solved
     }
     int result = 0;
     for (int i = 0; i < 8; i++) {
-      System.out.println("Row: " + row + ", Col: " + col);
       boolean moved = moveKnight(i,row,col);
       if (moved) {
-        System.out.println("Moved: \n" + toString());
         result += countH(row+move(i)[0],col+move(i)[1]);
-      //  System.out.println("ARow: "+move(i)[0]+ ", Col: " + move(i)[1]);
-        backKnight(i,row-move(i)[0],col-move(i)[1]);
-      } else if (i == 7) {
-        backKnight(i,row,col);
       }
-      System.out.println("Test:\n"+toString());
+      if (moved) {
+        backKnight(i,row + move(i)[0],col + move(i)[1]);
+      }
     }
     return 0;
   }
@@ -163,7 +158,7 @@ public class KnightBoard {
     KnightBoard k = new KnightBoard(5,5);
     System.out.println(k.toString());
   //  System.out.println(k.solve(4,4));
-    k.reset();
+  //  k.reset();
   //  System.out.println(k.toString());
     System.out.println(k.countSolutions(4,4));
   }
