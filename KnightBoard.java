@@ -16,7 +16,7 @@ public class KnightBoard {
     for (int i = 0; i < board.length; i++) {
       for (int x = 0; x < board[i].length; x++) {
         if (board[i][x] == 0) {
-            result += " _";
+            result += " " + board[i][x]; // should be " _" after testing
         } else if (board[i][x] < 10) {
           result += " " + (board[i][x]) + " ";
         } else {
@@ -34,7 +34,7 @@ public class KnightBoard {
         board[i][x] = 0;
       }
     }
-    level = 0;
+    level = 1;
   }
 
   private int[] move(int i) {
@@ -144,11 +144,17 @@ public class KnightBoard {
     }
     int result = 0;
     for (int i = 0; i < 8; i++) {
-      if (moveKnight(i,row,col)) {
+      System.out.println("Row: " + row + ", Col: " + col);
+      boolean moved = moveKnight(i,row,col);
+      if (moved) {
         System.out.println("Moved: \n" + toString());
-        result += countH(move(i)[0],move(i)[1]);
-        backKnight(i,move(i)[0],move(i)[1]);
+        result += countH(row+move(i)[0],col+move(i)[1]);
+      //  System.out.println("ARow: "+move(i)[0]+ ", Col: " + move(i)[1]);
+        backKnight(i,row-move(i)[0],col-move(i)[1]);
+      } else if (i == 7) {
+        backKnight(i,row,col);
       }
+      System.out.println("Test:\n"+toString());
     }
     return 0;
   }
@@ -156,10 +162,10 @@ public class KnightBoard {
   public static void main(String[] args) {
     KnightBoard k = new KnightBoard(5,5);
     System.out.println(k.toString());
-    System.out.println(k.solve(4,4));
-//    k.reset();
-    System.out.println(k.toString());
-//    System.out.println(k.countSolutions(4,4));
+  //  System.out.println(k.solve(4,4));
+    k.reset();
+  //  System.out.println(k.toString());
+    System.out.println(k.countSolutions(4,4));
   }
 
 
