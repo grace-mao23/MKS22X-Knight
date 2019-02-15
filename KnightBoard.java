@@ -1,6 +1,8 @@
 public class KnightBoard {
   private int[][] board;
-  private int level = 1;
+  private int level = 1; // delete later
+  private int[] rowMoves;
+  private int[] colMoves;
 
   //throws IllegalArgumentException when either parameter is negative.
   public KnightBoard(int startingRows,int startingCols) {
@@ -8,6 +10,8 @@ public class KnightBoard {
       throw new IllegalArgumentException("Dimensions cannot be negative");
     }
     board = new int[startingRows][startingCols];
+    rowMoves = new int[] {-2, -2, -1, 1, 2, 2, 1, -1};
+    colMoves = new int[] {-1, 1, 2, 2, 1, -1, -2, -2};
   }
 
 
@@ -148,7 +152,7 @@ public class KnightBoard {
         result += countH(row+move(i)[0],col+move(i)[1]);
       }
       if (moved) {
-        backKnight(i,row + move(i)[0],col + move(i)[1]);
+        backKnight(i,row+move(i)[0],col+move(i)[0]);
       }
     }
     return 0;
