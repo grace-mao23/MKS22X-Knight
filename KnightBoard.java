@@ -1,8 +1,5 @@
 public class KnightBoard {
   private int[][] board;
-  private int level = 1; // delete later
-  private int[] rowMoves;
-  private int[] colMoves;
 
   //throws IllegalArgumentException when either parameter is negative.
   public KnightBoard(int startingRows,int startingCols) {
@@ -10,8 +7,6 @@ public class KnightBoard {
       throw new IllegalArgumentException("Dimensions cannot be negative");
     }
     board = new int[startingRows][startingCols];
-    rowMoves = new int[] {-2, -2, -1, 1, 2, 2, 1, -1};
-    colMoves = new int[] {-1, 1, 2, 2, 1, -1, -2, -2};
   }
 
 
@@ -41,46 +36,6 @@ public class KnightBoard {
     level = 1;
   }
 
-  private int[] move(int i) {
-    int[] rowChange = new int[] {-2, -2, -1, 1, 2, 2, 1, -1};
-    int[] colChange = new int[] {-1, 1, 2, 2, 1, -1, -2, -2};
-    int[] result = new int[] { rowChange[i], colChange[i] };
-    return result;
-  }
-
-  // 0 - up left, 1 - up right, 2 - right up, 3 - right down, 4 - down right
-  // 5 - down left, 6 - right down, 7 - right up
-  private boolean moveKnight(int choice, int row, int col) {
-    if (board[row][col] != -1) return false;
-    int changedRow = row + move(choice)[0];
-    int changedCol = col + move(choice)[1];
-  //  System.out.println("Row: " + changedRow + ", Col: " + changedCol);
-    if (changedRow < 0 || changedCol < 0 ||
-        changedRow >= board.length || changedCol >= board[0].length ||
-        board[changedRow][changedCol] != 0) {
-      return false;
-    }
-    board[row][col] = level;
-    board[changedRow][changedCol] = -1;
-    level++;
-    return true;
-  }
-
-  private boolean backKnight(int choice, int row, int col) {
-    if (board[row][col] != -1) return false;
-    int backRow = row - move(choice)[0];
-    int backCol = col - move(choice)[1];
-    if (backRow < 0 || backCol < 0 ||
-        backRow >= board.length || backCol >= board[0].length ||
-        board[backRow][backCol] == 0) {
-      return false;
-    }
-    board[row][col] = 0;
-    board[backRow][backCol] = -1;
-    level--;
-    return true;
-  }
-
   //throws IllegalStateException when the board contains non-zero values.
   //throws IllegalArgumentException when either parameter is negative or out of bounds.
   public boolean solve(int startingRow, int startingCol) {
@@ -99,26 +54,9 @@ public class KnightBoard {
     return solveH(startingRow, startingCol);
   }
 
-  // level is the number of the knight
-  private boolean solveH(int row, int col) {
-    if (level == board.length * board[0].length) {
-      board[row][col] = level;
-      return true; // board solved
-    }
-    for (int i = 0; i < 8; i++) {
-  //    System.out.println("AChoice: "+i+" Round: "+round+"\n"+toString());
-      boolean moved = moveKnight(i,row,col);
-      if (moved && solveH(row+move(i)[0],col+move(i)[1])) {
-//        System.out.println("Choice: "+i+"Round: "+round+"\n"+toString());
-        return true;
-      }
-      if (moved) {
-  //      System.out.println("False activated Row: " + row + " Col: "+ col);
-        backKnight(i,row + move(i)[0],col + move(i)[1]);
-      }
-    }
-//    System.out.println("False");
-    return false;
+  // row to move to, col to move to, level
+  private boolean solveH(int row, int col, int level) {
+
   }
 
   //throws IllegalStateException when the board contains non-zero values.
@@ -140,22 +78,7 @@ public class KnightBoard {
   }
 
   public int countH(int row, int col) {
-    System.out.println(toString() + "\nLevel: "+level);
-    if (level == board.length * board[0].length) {
-      board[row][col] = level;
-      return 1; // board solved
-    }
-    int result = 0;
-    for (int i = 0; i < 8; i++) {
-      boolean moved = moveKnight(i,row,col);
-      if (moved) {
-        result += countH(row+move(i)[0],col+move(i)[1]);
-      }
-      if (moved) {
-        backKnight(i,row+move(i)[0],col+move(i)[0]);
-      }
-    }
-    return 0;
+
   }
 
   public static void main(String[] args) {
