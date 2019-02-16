@@ -54,12 +54,27 @@ public class KnightBoard {
       throw new IllegalArgumentException("Parameters out of bounds");
     }
     board[startingRow][startingCol] = -1;
-    return solveH(startingRow, startingCol);
+    return solveH(startingRow, startingCol, 1);
   }
 
-  // row to move to, col to move to, level
+  // row knight is at, col knight is at, level
   private boolean solveH(int row, int col, int level) {
-
+    if (level == board.length * board[0].length) {
+      board[row][col] = level;
+      return true;
+    }
+    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
+      return false; // you've moved the knight out of bounds, backtrack
+    }
+    if (board[row][col] != 0) {
+      return false;
+      // your knight is eithe on another knight or at a place already gone to before
+    }
+    for (int i = 0; i < 8; i++) {
+      board[row][col] = level;
+      return solveH(row + rowMoves[i],col + colMoves[i],level++);
+    }
+    return false;
   }
 
   //throws IllegalStateException when the board contains non-zero values.
@@ -81,7 +96,7 @@ public class KnightBoard {
   }
 
   public int countH(int row, int col) {
-
+    return -1;
   }
 
   public static void main(String[] args) {
