@@ -96,7 +96,7 @@ public class KnightBoard {
   }
 
   public int countH(int row, int col, int level) {
-    if (level > board.length * board[0].length) {
+    if (level == board.length * board[0].length) {
       return 1;
     }
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
@@ -122,7 +122,7 @@ public class KnightBoard {
   //  System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
-    System.out.println(k.countSolutions(2,2));
+    System.out.println(k.countSolutions(0,0));
   }
 
 
