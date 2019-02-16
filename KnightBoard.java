@@ -68,10 +68,10 @@ public class KnightBoard {
       return false;
       // your knight is either on another knight or at a place already gone to before
     }
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++) { // going through all 8
       board[row][col] = level;
       if (solveH(row + rowMoves[i],col + colMoves[i],level+1)) {
-        return true;
+        return true; // checking if a solution works for the next move
       }
       board[row][col] = 0;
     }
@@ -92,22 +92,37 @@ public class KnightBoard {
         startingRow >= board.length || startingCol >= board[startingRow].length) {
       throw new IllegalArgumentException("Parameters out of bounds");
     }
-    board[startingRow][startingCol] = -1;
-    return countH(startingRow,startingCol);
+    return countH(startingRow,startingCol, 1);
   }
 
-  public int countH(int row, int col) {
-    return -1;
+  public int countH(int row, int col, int level) {
+    if (level > board.length * board[0].length) {
+      return 1;
+    }
+    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
+      return 0; // you've moved the knight out of bounds, backtrack
+    }
+    if (board[row][col] != 0) {
+      return 0;
+      // your knight is either on another knight or at a place already gone to before
+    }
+    int result = 0;
+    for (int i = 0; i < 8; i++) { // going through all 8
+      board[row][col] = level;
+      result += countH(row + rowMoves[i],col + colMoves[i],level+1);
+      board[row][col] = 0;
+    }
+    return result;
   }
 
   public static void main(String[] args) {
     KnightBoard k = new KnightBoard(5,5);
-    System.out.println(k.toString());
-    System.out.println(k.solve(4,4));
-    System.out.println(k.toString());
+  //  System.out.println(k.toString());
+    //System.out.println(k.solve(4,4));
+  //  System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
-  //  System.out.println(k.countSolutions(4,4));
+    System.out.println(k.countSolutions(2,2));
   }
 
 
