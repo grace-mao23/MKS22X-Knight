@@ -1,5 +1,6 @@
 public class KnightBoard {
   private int[][] board;
+  private int[][] outgoing;
   private int[] rowMoves;
   private int[] colMoves;
 
@@ -11,8 +12,14 @@ public class KnightBoard {
     board = new int[startingRows][startingCols];
     rowMoves = new int[] { -2, -2, -1, 1, 2, 2, -1, 1 };
     colMoves = new int[] { -1, 1, 2, 2, 1, -1, -2, -2 };
+    outgoing = new int[startingRows][startingCols];
+    initialize();
   }
 
+  // initialize board with outgoing moves
+  private void initialize() {
+
+  }
 
   public String toString() {
     String result = "";
