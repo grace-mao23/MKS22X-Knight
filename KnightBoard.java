@@ -18,7 +18,20 @@ public class KnightBoard {
 
   // initialize board with outgoing moves
   private void initialize() {
-
+    for (int i = 0; i < board.length; i++) {
+      for (int x = 0; x < board[i].length; x++) {
+        int count = 0;
+        for (int y = 0; y < 8; y++) {
+          int newRow = i + rowMoves[y];
+          int newCol = x + colMoves[y];
+          if (newRow >= 0 && newCol >= 0 &&
+              newRow < board.length && newCol < board[newRow].length) {
+            count++;
+          }
+        }
+        outgoing[i][x] = count;
+      }
+    }
   }
 
   public String toString() {
@@ -129,7 +142,7 @@ public class KnightBoard {
   //  System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
-    System.out.println(k.countSolutions(0,0));
+  //  System.out.println(k.countSolutions(0,0));
   }
 
 
