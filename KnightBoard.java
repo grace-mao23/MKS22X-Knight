@@ -53,14 +53,12 @@ public class KnightBoard {
         startingRow >= board.length || startingCol >= board[startingRow].length) {
       throw new IllegalArgumentException("Parameters out of bounds");
     }
-    board[startingRow][startingCol] = -1;
     return solveH(startingRow, startingCol, 1);
   }
 
   // row knight is at, col knight is at, level
   private boolean solveH(int row, int col, int level) {
-    if (level == board.length * board[0].length) {
-      board[row][col] = level;
+    if (level > board.length * board[0].length) {
       return true;
     }
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
@@ -68,11 +66,14 @@ public class KnightBoard {
     }
     if (board[row][col] != 0) {
       return false;
-      // your knight is eithe on another knight or at a place already gone to before
+      // your knight is either on another knight or at a place already gone to before
     }
     for (int i = 0; i < 8; i++) {
       board[row][col] = level;
-      return solveH(row + rowMoves[i],col + colMoves[i],level++);
+      if (solveH(row + rowMoves[i],col + colMoves[i],level+1)) {
+        return true;
+      }
+      board[row][col] = 0;
     }
     return false;
   }
@@ -102,10 +103,11 @@ public class KnightBoard {
   public static void main(String[] args) {
     KnightBoard k = new KnightBoard(5,5);
     System.out.println(k.toString());
-  //  System.out.println(k.solve(4,4));
+    System.out.println(k.solve(4,4));
+    System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
-    System.out.println(k.countSolutions(4,4));
+  //  System.out.println(k.countSolutions(4,4));
   }
 
 
