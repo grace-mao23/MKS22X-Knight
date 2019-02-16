@@ -18,14 +18,14 @@ public class KnightBoard {
 
   // initialize board with outgoing moves
   private void initialize() {
-    for (int i = 0; i < board.length; i++) {
-      for (int x = 0; x < board[i].length; x++) {
+    for (int i = 0; i < outgoing.length; i++) {
+      for (int x = 0; x < outgoing[i].length; x++) {
         int count = 0;
         for (int y = 0; y < 8; y++) {
           int newRow = i + rowMoves[y];
           int newCol = x + colMoves[y];
           if (newRow >= 0 && newCol >= 0 &&
-              newRow < board.length && newCol < board[newRow].length) {
+              newRow < outgoing.length && newCol < outgoing[newRow].length) {
             count++;
           }
         }
@@ -34,12 +34,27 @@ public class KnightBoard {
     }
   }
 
+  public String toStringOut() {
+    String result = "";
+    for (int i = 0; i < outgoing.length; i++) {
+      for (int x = 0; x < outgoing[i].length; x++) {
+        if (outgoing[i][x] < 10) {
+          result += " " + (outgoing[i][x]) + " ";
+        } else {
+          result += (outgoing[i][x]) + " ";
+        }
+      }
+      result += "\n";
+    }
+    return result;
+  }
+
   public String toString() {
     String result = "";
     for (int i = 0; i < board.length; i++) {
       for (int x = 0; x < board[i].length; x++) {
         if (board[i][x] == 0) {
-            result += " " + board[i][x]; // should be " _" after testing
+            result += " _" + board[i][x]; // should be " _" after testing
         } else if (board[i][x] < 10) {
           result += " " + (board[i][x]) + " ";
         } else {
@@ -136,7 +151,8 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(5,5);
+    KnightBoard k = new KnightBoard(20,20);
+    System.out.println(k.toStringOut());
   //  System.out.println(k.toString());
     //System.out.println(k.solve(4,4));
   //  System.out.println(k.toString());
