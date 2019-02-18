@@ -88,8 +88,14 @@ public class KnightBoard {
         startingRow >= board.length || startingCol >= board[startingRow].length) {
       throw new IllegalArgumentException("Parameters out of bounds");
     }
-    return solveH(startingRow, startingCol, 1);
+    return solveO(startingRow, startingCol, 1);
   }
+
+  private boolean solveO(int row, int col, int level) {
+    return true;
+  }
+
+
 
   // row knight is at, col knight is at, level
   private boolean solveH(int row, int col, int level) {
@@ -151,10 +157,10 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(20,20);
-    System.out.println(k.toStringOut());
+    KnightBoard k = new KnightBoard(6,6);
+  //  System.out.println(k.toStringOut());
   //  System.out.println(k.toString());
-    //System.out.println(k.solve(4,4));
+    System.out.println(k.solve(0,0));
   //  System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
