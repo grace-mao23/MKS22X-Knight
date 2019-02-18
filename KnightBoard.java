@@ -106,7 +106,7 @@ public class KnightBoard {
     }
     // instead of going through regular list of moves, reorder (sort) to optimize
     int[] moves = reorder(row, col);
-    for (int i = 0; i < 8; i++) { // going through all 8
+    for (int i : moves) { // NEED TO GO ONLY THROUGH ALL THE VIABLE MOVES
       board[row][col] = level;
       if (solveH(row + rowMoves[i],col + colMoves[i],level+1)) {
         return true; // checking if a solution works for the next move
@@ -132,7 +132,7 @@ public class KnightBoard {
       int newPlace = i;
       for (int x = i - 1; x >= 0; x--) {
         int compare = 0;
-        if (result[x] == 100) {
+        if (result[x] == 100 || currentValue == 100) {
           compare = 100;
         } else {
           compare = outgoing[row+rowMoves[result[x]]][col+colMoves[result[x]]];
@@ -222,10 +222,10 @@ public class KnightBoard {
 
   public static void main(String[] args) {
     KnightBoard k = new KnightBoard(5,5);
-    System.out.println(k.toStringOut());
-    System.out.println(Arrays.toString(k.reorder(3,1)));
+  //  System.out.println(k.toStringOut());
+    //System.out.println(Arrays.toString(k.reorder(3,1)));
   //  System.out.println(k.toString());
-  //  System.out.println(k.solve(0,0));
+    System.out.println(k.solve(0,0));
   //  System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
