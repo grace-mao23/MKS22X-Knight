@@ -131,7 +131,13 @@ public class KnightBoard {
       System.out.println(i+": " + currentValue);
       int newPlace = i;
       for (int x = i - 1; x >= 0; x--) {
-        if (currentValue < outgoing[row+rowMoves[result[x]]][col+colMoves[result[x]]]) {
+        int compare = 0;
+        if (result[x] == 100) {
+          compare = 100;
+        } else {
+          compare = outgoing[row+rowMoves[result[x]]][col+colMoves[result[x]]];
+        }
+        if (currentValue < compare) {
           result[x+1] = result[x]; // shifting
           newPlace = x;
         }
