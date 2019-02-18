@@ -114,8 +114,20 @@ public class KnightBoard {
     return false;
   }
 
+  // compare each moves outgoing board value and sort
   private int[] reorder(int row, int col) {
     int[] result = new int[8];
+    for (int i = 1; i < data.length; i++) {
+      int current = data[i];
+      int newPlace = i;
+      for (int x = i - 1; x >= 0; x--) {
+        if (data[x] > current) {
+          data[x+1] = data[x]; // shifting
+          newPlace = x; // where should current be
+        }
+        data[newPlace] = current;
+      }
+    }
     return result;
   }
 
