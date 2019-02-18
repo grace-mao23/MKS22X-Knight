@@ -116,16 +116,16 @@ public class KnightBoard {
 
   // compare each moves outgoing board value and sort
   private int[] reorder(int row, int col) {
-    int[] result = new int[8];
-    for (int i = 1; i < data.length; i++) {
-      int current = data[i];
+    int[] result = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+    for (int i = 1; i < 8; i++) {
+      int currentValue = outgoing[row+rowMoves[i]][col+colMoves[i]];
       int newPlace = i;
       for (int x = i - 1; x >= 0; x--) {
-        if (data[x] > current) {
-          data[x+1] = data[x]; // shifting
-          newPlace = x; // where should current be
+        if (currentValue < outgoing[row+rowMoves[result[x]]][col+colMoves[result[x]]]) {
+          result[x+1] = result[x]; // shifting
+          newPlace = x;
         }
-        data[newPlace] = current;
+        result[newPlace] = currentValue;
       }
     }
     return result;
