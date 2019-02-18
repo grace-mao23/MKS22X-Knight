@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class KnightBoard {
   private int[][] board;
   private int[][] outgoing;
@@ -115,20 +117,40 @@ public class KnightBoard {
   }
 
   // compare each moves outgoing board value and sort
-  private int[] reorder(int row, int col) {
+  public int[] reorder(int row, int col) { // should be private
     int[] result = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
     for (int i = 1; i < 8; i++) {
-      int currentValue = outgoing[row+rowMoves[i]][col+colMoves[i]];
+      int currentValue = 0;
+      if (row+rowMoves[i] < 0 || col+colMoves[i] < 0 ||
+          row+rowMoves[i] >= board.length || col+colMoves[i] >= board[row+rowMoves[i]].length) {
+        // not a viable move
+        currentValue = 100;
+      } else {
+        currentValue = outgoing[row+rowMoves[i]][col+colMoves[i]];
+      }
+      System.out.println(i+": " + currentValue);
       int newPlace = i;
       for (int x = i - 1; x >= 0; x--) {
         if (currentValue < outgoing[row+rowMoves[result[x]]][col+colMoves[result[x]]]) {
           result[x+1] = result[x]; // shifting
           newPlace = x;
         }
-        result[newPlace] = currentValue;
+        if (currentValue == 100) {
+          result[newPlace] = currentValue;
+        } else {
+          result[newPlace] = i;
+        }
       }
     }
-    return result;
+    int[] goodMoves = new int[outgoing[row][col]];
+    int index = 0;
+    for (int i = 0; i < result.length; i++) {
+      if (result[i] != 100) {
+        goodMoves[index] = result[i];
+        index++;
+      }
+    }
+    return goodMoves;
   }
 
 
@@ -193,10 +215,11 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(6,6);
-  //  System.out.println(k.toStringOut());
+    KnightBoard k = new KnightBoard(5,5);
+    System.out.println(k.toStringOut());
+    System.out.println(Arrays.toString(k.reorder(3,1)));
   //  System.out.println(k.toString());
-    System.out.println(k.solve(0,0));
+  //  System.out.println(k.solve(0,0));
   //  System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
