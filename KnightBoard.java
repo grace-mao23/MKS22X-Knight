@@ -92,7 +92,31 @@ public class KnightBoard {
   }
 
   private boolean solveO(int row, int col, int level) {
-    return true;
+    if (level > board.length * board[0].length) {
+      return true;
+    }
+    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
+      return false; // you've moved the knight out of bounds, backtrack
+    }
+    if (board[row][col] != 0) {
+      return false;
+      // your knight is either on another knight or at a place already gone to before
+    }
+    // instead of going through regular list of moves, reorder (sort) to optimize
+    int[] moves = reorder(row, col);
+    for (int i = 0; i < 8; i++) { // going through all 8
+      board[row][col] = level;
+      if (solveH(row + rowMoves[i],col + colMoves[i],level+1)) {
+        return true; // checking if a solution works for the next move
+      }
+      board[row][col] = 0;
+    }
+    return false;
+  }
+
+  private int[] reorder(int row, int col) {
+    int[] result = new int[8];
+    return result;
   }
 
 
