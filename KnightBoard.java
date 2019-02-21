@@ -118,11 +118,22 @@ public class KnightBoard {
   }
 
   private void update(int row, int col) {
-    
+    int rowChanged;
+    int colChanged;
+    for (int i = 0; i < 8; i++) {
+      rowChanged = row + rowMoves[i];
+      colChanged = col + colMoves[i];
+      if (rowChanged >= 0 && colChanged >= 0 &&
+          rowChanged < board.length && colChanged < board[rowChanged].length) {
+        outgoing[rowChanged][colChanged] -= 1;
+      }
+    }
   }
 
   // compare each moves outgoing board value and sort
   private int[] reorder(int row, int col) { // should be private
+  //  System.out.println(toStringOut());
+    //System.out.println(toString());
     int[] result = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
     if (row+rowMoves[0] < 0 || col+colMoves[0] < 0 ||
         row+rowMoves[0] >= board.length || col+colMoves[0] >= board[row+rowMoves[0]].length) {
@@ -131,7 +142,8 @@ public class KnightBoard {
     for (int i = 1; i < 8; i++) {
       int currentValue = 0;
       if (row+rowMoves[i] < 0 || col+colMoves[i] < 0 ||
-          row+rowMoves[i] >= board.length || col+colMoves[i] >= board[row+rowMoves[i]].length) {
+          row+rowMoves[i] >= board.length || col+colMoves[i] >= board[row+rowMoves[i]].length ||
+          board[row+rowMoves[i]][col+colMoves[i]] != 0) {
         // not a viable move
         currentValue = 100;
       } else {
@@ -159,12 +171,15 @@ public class KnightBoard {
     }
     int[] goodMoves = new int[outgoing[row][col]];
     int index = 0;
+    System.out.println(Arrays.toString(result));
     for (int i = 0; i < result.length; i++) {
       if (result[i] != 100) {
+        System.out.println("I: "+index+ ", i: " + i);
         goodMoves[index] = result[i];
         index++;
       }
     }
+  //  System.out.println(toStringOut());
     return goodMoves;
   }
 
