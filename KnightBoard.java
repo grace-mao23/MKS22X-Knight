@@ -108,7 +108,8 @@ public class KnightBoard {
     int[] moves = reorder(row, col);
     for (int i : moves) { // NEED TO GO ONLY THROUGH ALL THE VIABLE MOVES
       board[row][col] = level;
-      if (solveH(row + rowMoves[i],col + colMoves[i],level+1)) {
+      update(row,col);
+      if (solveO(row + rowMoves[i],col + colMoves[i],level+1)) {
         return true; // checking if a solution works for the next move
       }
       board[row][col] = 0;
@@ -116,8 +117,12 @@ public class KnightBoard {
     return false;
   }
 
+  private void update(int row, int col) {
+    
+  }
+
   // compare each moves outgoing board value and sort
-  public int[] reorder(int row, int col) { // should be private
+  private int[] reorder(int row, int col) { // should be private
     int[] result = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
     if (row+rowMoves[0] < 0 || col+colMoves[0] < 0 ||
         row+rowMoves[0] >= board.length || col+colMoves[0] >= board[row+rowMoves[0]].length) {
