@@ -119,6 +119,10 @@ public class KnightBoard {
   // compare each moves outgoing board value and sort
   public int[] reorder(int row, int col) { // should be private
     int[] result = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
+    if (row+rowMoves[0] < 0 || col+colMoves[0] < 0 ||
+        row+rowMoves[0] >= board.length || col+colMoves[0] >= board[row+rowMoves[0]].length) {
+      result[0] = 100;
+    }
     for (int i = 1; i < 8; i++) {
       int currentValue = 0;
       if (row+rowMoves[i] < 0 || col+colMoves[i] < 0 ||
@@ -128,7 +132,7 @@ public class KnightBoard {
       } else {
         currentValue = outgoing[row+rowMoves[i]][col+colMoves[i]];
       }
-      System.out.println(i+": " + currentValue);
+      //System.out.println(i+": " + currentValue);
       int newPlace = i;
       for (int x = i - 1; x >= 0; x--) {
         int compare = 0;
@@ -222,11 +226,11 @@ public class KnightBoard {
 
   public static void main(String[] args) {
     KnightBoard k = new KnightBoard(5,5);
-  //  System.out.println(k.toStringOut());
+    System.out.println(k.toStringOut());
     //System.out.println(Arrays.toString(k.reorder(3,1)));
   //  System.out.println(k.toString());
     System.out.println(k.solve(0,0));
-  //  System.out.println(k.toString());
+    System.out.println(k.toString());
   //  k.reset();
   //  System.out.println(k.toString());
   //  System.out.println(k.countSolutions(0,0));
