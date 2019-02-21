@@ -133,7 +133,7 @@ public class KnightBoard {
 
   // compare each moves outgoing board value and sort
   private int[] reorder(int row, int col) { // should be private
-  //  System.out.println(toStringOut());
+    //  System.out.println(toStringOut());
     //System.out.println(toString());
     int[] result = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
     if (row+rowMoves[0] < 0 || col+colMoves[0] < 0 ||
@@ -171,14 +171,14 @@ public class KnightBoard {
         }
       }
     }
-    System.out.println(toStringOut());
-    System.out.println(toString());
+//    System.out.println(toStringOut());
+  //  System.out.println(toString());
     int[] goodMoves = new int[outgoing[row][col]];
     int index = 0;
-    System.out.println(Arrays.toString(result));
+    //System.out.println(Arrays.toString(result));
     for (int i = 0; i < result.length; i++) {
       if (result[i] != 100) {
-        System.out.println("I: "+index+ ", " + goodMoves.length + ", i: " + i);
+      //  System.out.println("I: "+index+ ", " + goodMoves.length + ", i: " + i);
         goodMoves[index] = result[i];
         index++;
       }
@@ -249,8 +249,8 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(5,5);
-    System.out.println(k.toStringOut());
+    KnightBoard k = new KnightBoard(10,10);
+  //  System.out.println(k.toStringOut());
     //System.out.println(Arrays.toString(k.reorder(3,1)));
   //  System.out.println(k.toString());
     System.out.println(k.solve(0,0));
