@@ -56,7 +56,7 @@ public class KnightBoard {
     for (int i = 0; i < board.length; i++) {
       for (int x = 0; x < board[i].length; x++) {
         if (board[i][x] == 0) {
-            result += " _" + board[i][x]; // should be " _" after testing
+            result += " " + board[i][x]; // should be " _" after testing
         } else if (board[i][x] < 10) {
           result += " " + (board[i][x]) + " ";
         } else {
@@ -94,7 +94,8 @@ public class KnightBoard {
   }
 
   private boolean solveO(int row, int col, int level) {
-    if (level > board.length * board[0].length) {
+    if (level == board.length * board[0].length) {
+      board[row][col] = level;
       return true;
     }
     if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
@@ -136,7 +137,8 @@ public class KnightBoard {
     //System.out.println(toString());
     int[] result = new int[] { 0, 1, 2, 3, 4, 5, 6, 7 };
     if (row+rowMoves[0] < 0 || col+colMoves[0] < 0 ||
-        row+rowMoves[0] >= board.length || col+colMoves[0] >= board[row+rowMoves[0]].length) {
+        row+rowMoves[0] >= board.length || col+colMoves[0] >= board[row+rowMoves[0]].length ||
+        board[row+rowMoves[0]][col+colMoves[0]] != 0) {
       result[0] = 100;
     }
     for (int i = 1; i < 8; i++) {
@@ -169,12 +171,14 @@ public class KnightBoard {
         }
       }
     }
+    System.out.println(toStringOut());
+    System.out.println(toString());
     int[] goodMoves = new int[outgoing[row][col]];
     int index = 0;
     System.out.println(Arrays.toString(result));
     for (int i = 0; i < result.length; i++) {
       if (result[i] != 100) {
-        System.out.println("I: "+index+ ", i: " + i);
+        System.out.println("I: "+index+ ", " + goodMoves.length + ", i: " + i);
         goodMoves[index] = result[i];
         index++;
       }
