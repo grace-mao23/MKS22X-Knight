@@ -295,7 +295,7 @@ public class KnightBoard {
 
   public static void main(String[] args) {
   //  KnightBoard none = new KnightBoard(0,0);
-    KnightBoard one = new KnightBoard(1,1);
+  /*  KnightBoard one = new KnightBoard(1,1);
     KnightBoard two = new KnightBoard(2,2);
     KnightBoard three = new KnightBoard(3,3);
     KnightBoard four = new KnightBoard(4,4);
@@ -318,11 +318,14 @@ public class KnightBoard {
       }
       e.reset();
       System.out.println("--------------------------");
-    }
+    } */
   //  KnightBoard five = new KnightBoard(5,5);
     //System.out.println(five.solve(0,0));
     //five.reset();
     //System.out.println(five.countSolutions(0,0));
+    KnightBoard k = new KnightBoard(20,20);
+    System.out.println(k.solve(0,0));
+  //  System.out.println(k.toString());
   }
 
 
