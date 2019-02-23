@@ -265,9 +265,23 @@ public class KnightBoard {
       board[row][col] = level;
       update(row,col);
       result += countH(row + rowMoves[i],col + colMoves[i],level+1);
+      redo(row,col); // backing up for next choice
       board[row][col] = 0;
     }
     return result;
+  }
+
+  private int redo(int row, int col) {
+    int rowChanged;
+    int colChanged;
+    for (int i = 0; i < 8; i++) {
+      rowChanged = row + rowMoves[i];
+      colChanged = col + colMoves[i];
+      if (rowChanged >= 0 && colChanged >= 0 &&
+          rowChanged < board.length && colChanged < board[rowChanged].length) {
+        outgoing[rowChanged][colChanged] += 1;
+      }
+    }
   }
 
   public static void main(String[] args) {
