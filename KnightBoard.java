@@ -106,6 +106,7 @@ public class KnightBoard {
       // your knight is either on another knight or at a place already gone to before
     }
     // instead of going through regular list of moves, reorder (sort) to optimize
+  //  System.out.println("---------------------"+level+": " + row + ", "+ col);
     int[] moves = reorder(row, col);
     for (int i : moves) { // NEED TO GO ONLY THROUGH ALL THE VIABLE MOVES
       board[row][col] = level;
@@ -113,6 +114,7 @@ public class KnightBoard {
       if (solveO(row + rowMoves[i],col + colMoves[i],level+1)) {
         return true; // checking if a solution works for the next move
       }
+      redo(row,col);
       board[row][col] = 0;
     }
     return false;
@@ -122,6 +124,7 @@ public class KnightBoard {
     int rowChanged;
     int colChanged;
     for (int i = 0; i < 8; i++) {
+    //  System.out.println("Update: \n" + toStringOut());
       rowChanged = row + rowMoves[i];
       colChanged = col + colMoves[i];
       if (rowChanged >= 0 && colChanged >= 0 &&
@@ -171,8 +174,8 @@ public class KnightBoard {
         }
       }
     }
-//    System.out.println(toStringOut());
-  //  System.out.println(toString());
+  //  System.out.println(toStringOut());
+    //System.out.println(toString());
     int[] goodMoves = new int[outgoing[row][col]];
     int index = 0;
     //System.out.println(Arrays.toString(result));
@@ -290,16 +293,33 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(6,6);
-  //  System.out.println(k.toStringOut());
-    //System.out.println(Arrays.toString(k.reorder(3,1)));
-  //  System.out.println(k.toString());
-  //  System.out.println(k.solve(0,0));
-    //sSystem.out.println(k.toString());
-    System.out.println(k.countSolutions(0,0));
-  //  k.reset();
-  //  System.out.println(k.toString());
-  //  System.out.println(k.countSolutions(0,0));
+  //  KnightBoard none = new KnightBoard(0,0);
+  /*  KnightBoard one = new KnightBoard(1,1);
+    KnightBoard two = new KnightBoard(2,2);
+    KnightBoard three = new KnightBoard(3,3);
+    KnightBoard four = new KnightBoard(4,4);
+    KnightBoard five = new KnightBoard(5,5);
+    KnightBoard six = new KnightBoard(6,6);
+    KnightBoard seven = new KnightBoard(7,7);
+    KnightBoard eight = new KnightBoard(8,8);
+    KnightBoard nine = new KnightBoard(9,9);
+    KnightBoard ten = new KnightBoard(10,10);
+    KnightBoard[] q = new KnightBoard[] {
+      one, two, three, four, five, six, seven, eight, nine, ten
+    };
+    for (KnightBoard e : q) {
+      System.out.println("Board: \n" + e.toString());
+      System.out.println("Solveable? " + e.solve(0,0));
+      e.reset();
+      System.out.println("Solutions: " + e.countSolutions(0,0));
+      if (e.solve(0,0)) {
+        System.out.println("Example: \n" + e.toString());
+      }
+      e.reset();
+      System.out.println("--------------------------");
+    }*/
+    KnightBoard three = new KnightBoard(3,3);
+    System.out.println(three.solve(0,0));
   }
 
 
