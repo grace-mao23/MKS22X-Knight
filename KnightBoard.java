@@ -249,7 +249,25 @@ public class KnightBoard {
   }
 
   public int countO(int row, int col, int level) {
-
+    if (row < 0 || col < 0 || row >= board.length || col >= board[row].length) {
+      return 0; // you've moved the knight out of bounds, backtrack
+    }
+    if (board[row][col] != 0) {
+      return 0;
+      // your knight is either on another knight or at a place already gone to before
+    }
+    if (level == board.length * board[0].length) {
+      return 1;
+    }
+    int result = 0;
+    int[] moves = reorder(row, col);
+    for (int i : moves) { // going through all 8
+      board[row][col] = level;
+      update(row,col);
+      result += countH(row + rowMoves[i],col + colMoves[i],level+1);
+      board[row][col] = 0;
+    }
+    return result;
   }
 
   public static void main(String[] args) {
