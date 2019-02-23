@@ -225,7 +225,7 @@ public class KnightBoard {
         startingRow >= board.length || startingCol >= board[startingRow].length) {
       throw new IllegalArgumentException("Parameters out of bounds");
     }
-    return countH(startingRow,startingCol, 1);
+    return countO(startingRow,startingCol, 1);
   }
 
   public int countH(int row, int col, int level) {
@@ -246,6 +246,10 @@ public class KnightBoard {
       board[row][col] = 0;
     }
     return result;
+  }
+
+  public int countO(int row, int col, int level) {
+
   }
 
   public static void main(String[] args) {
