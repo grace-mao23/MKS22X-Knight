@@ -261,17 +261,22 @@ public class KnightBoard {
     }
     int result = 0;
     int[] moves = reorder(row, col);
+//    System.out.println(Arrays.toString(moves));
     for (int i : moves) { // going through all 8
+  //    System.out.println("boo");
       board[row][col] = level;
+    //  System.out.println("hoo");
       update(row,col);
-      result += countH(row + rowMoves[i],col + colMoves[i],level+1);
+    //  System.out.println("woo");
+      result += countO(row + rowMoves[i],col + colMoves[i],level+1);
+      //System.out.println("noo");
       redo(row,col); // backing up for next choice
       board[row][col] = 0;
     }
     return result;
   }
 
-  private int redo(int row, int col) {
+  private void redo(int row, int col) {
     int rowChanged;
     int colChanged;
     for (int i = 0; i < 8; i++) {
@@ -285,12 +290,13 @@ public class KnightBoard {
   }
 
   public static void main(String[] args) {
-    KnightBoard k = new KnightBoard(10,10);
+    KnightBoard k = new KnightBoard(6,6);
   //  System.out.println(k.toStringOut());
     //System.out.println(Arrays.toString(k.reorder(3,1)));
   //  System.out.println(k.toString());
-    System.out.println(k.solve(0,0));
-    System.out.println(k.toString());
+  //  System.out.println(k.solve(0,0));
+    //sSystem.out.println(k.toString());
+    System.out.println(k.countSolutions(0,0));
   //  k.reset();
   //  System.out.println(k.toString());
   //  System.out.println(k.countSolutions(0,0));
