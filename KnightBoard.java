@@ -56,7 +56,7 @@ public class KnightBoard {
     for (int i = 0; i < board.length; i++) {
       for (int x = 0; x < board[i].length; x++) {
         if (board[i][x] == 0) {
-            result += " " + board[i][x]; // should be " _" after testing
+            result += " _"; //+ board[i][x]; // should be " _" after testing
         } else if (board[i][x] < 10) {
           result += " " + (board[i][x]) + " ";
         } else {
@@ -323,9 +323,9 @@ public class KnightBoard {
     //System.out.println(five.solve(0,0));
     //five.reset();
     //System.out.println(five.countSolutions(0,0));
-    KnightBoard k = new KnightBoard(20,20);
+    KnightBoard k = new KnightBoard(3,4);
     System.out.println(k.solve(0,0));
-  //  System.out.println(k.toString());
+    System.out.println(k.toString());
   }
 
 
